@@ -1,0 +1,142 @@
+
+
+
+import { useEffect, useState, useRef } from "react"
+import * as Styles from "../services/styles.js";
+import useAuthStore from "../store/useAuthStore.js";
+import axios from "axios";
+
+
+function Create() {
+    /* Define state variables and retrieve the user's authentication token */
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
+    const [select, setSelect] = useState("");
+    const [url, setURL] = useState("");
+    const [file, setFile] = useState();
+    const [files, setFiles] = useState([])
+    const token = useAuthStore(state => state.getToken());
+
+    const fileInputRef = useRef();
+
+    /* Define functions to handle changes in input fields */
+    const handleTitleChange = (event) => {
+        setTitle(event.target.value);
+    };
+    const handleTextChange = (event) => {
+        setText(event.target.value);
+    };
+    const handleURLChange = (event) => {
+        setURL(event.target.value);
+    };
+
+    const handleSelectChange = (event) => {
+        setSelect(event.target.value);
+    }
+    /* Define function to handle submission of the form */
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+
+    };
+
+
+    const addToFiles = () => {
+        const inputFiles = fileInputRef.current.files;
+        const inputFilesList = Array.from(inputFiles);
+        setFiles([...files, ...inputFilesList]);
+    };
+
+    useEffect(() => {
+        console.log("FILES: ", files);
+        fileInputRef.current.value = '';
+    }, [files])
+
+
+    // Create a FormData object with the user's input data
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('category', select);
+        formData.append('title', title);
+        formData.append('text', text);
+        formData.append('url', url);
+        console.log(title, text, select, url)
+        /* Define the configuration for the HTTP request */
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8080/protected/post',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                // ...formData.getHeaders()
+            },
+            data: formData
+        }
+
+        console.log(config.data.get(file));
+        /* Send the HTTP request to the server */
+        axios.request(config)
+            .then((response) => {
+                alert('successfully')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    /* Render the component's UI */
+    return (
+        <>
+            <h1 className={`${Styles.heading2}  text-center`}>New Post</h1>
+            <form onSubmit={handleSubmit} className="mx-auto w-full md:w-1/3 font-sans text-xs md:text-sm rounded-md p-4">
+                {/* Title input */}
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={handleTitleChange}
+                        className={`${Styles.input3}`}
+                        placeholder="Title"
+                        required
+                    />
+                </div>
+                {/* Textarea input */}
+                <div>
+                    <textarea onChange={handleTextChange} value={text} name="content" id="content" cols="30" rows="10" className={`${Styles.input3}`} placeholder="Create your content ..."></textarea>
+                </div>
+
+                {/* Selec */}
+                <div className="mb-4">
+                    <select value={select} onChange={handleSelectChange} className={`${Styles.input3} text-gray-500`}>
+                        <option value="">Choose Category</option>
+                        <option value={'story'}>Stories</option>
+                        <option value={'review'}>Reviews</option>
+                        <option value={'market'}>Market</option>
+                    </select>
+                </div>
+
+                {/* File input */}
+                <div className=" mb-4 w-full">
+
+                    <input type="file" name="file" id="file" lang="en" ref={fileInputRef} multiple onChange={handleFileChange} className="mb-4 bg-stone-800 text-cyan-500 cursor-pointer w-full  border border-cyan-700" />
+                    <div className="flex flex-col items-center">
+                        <button onClick={addToFiles} className={`${Styles.mainButton}`} >ADD</button>
+
+                    </div>
+
+                    <input onChange={handleURLChange} value={url} type="text" placeholder="Save Urls" className={`${Styles.input3}`} />
+                </div>
+                <div className="flex flex-col items-center">
+                    <button type="submit" className={`${Styles.mainButton}`} >Create Post</button>
+
+                </div>
+
+            </form>
+        </>
+
+    )
+}
+
+export default Create;

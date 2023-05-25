@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "d58ab2c5-74b4-4eaa-b8af-2499f39dd63c",
+		"name": "BoarderGram-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "getArticlesOnly",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/public/articles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"public",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"olliGP\",\n    \"password\" : \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/public/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"public",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"herbi\",\n    \"password\": \"12345\",\n    \"fullname\": \"Klaus Herbert\",\n    \"email\": \"hannespetri89@gmail.com\",\n    \"birthday\": \"1989-07-03\",\n    \"city\": \"Leipzig\",\n    \"description\": {},\n    \"role\": \"user\",\n    \"image\": \"\",\n    \"favorites\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/public/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"public",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Protected",
+			"item": [
+				{
+					"name": "createPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"642abf7a0369bfb01aa0cdeb\",\n    \"category\": \"review\",\n    \"title\": \"Test-Review\",\n    \"text\": \"Klammeraffe\",\n    \"images\": [],\n    \"visible\": true,\n    \"published\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/protected/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBlogsOnly",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/protected/blogs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFavorites",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/protected/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReport",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDFjMWI1YmUyYmM1NjQ2MzJmZWRjMjQiLCJ1c2VybmFtZSI6ImZpbGxpcG8iLCJlbWFpbCI6InBldGVyaW52YXNpb25AYW9sLmNvbSIsImlhdCI6MTY3OTU4MDcxMiwiZXhwIjoxNjc5NTg0MzEyfQ.I-tviqgxQNoICcYlfKzmxWJqmhDik0Hkeq8xPxamWyo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reportedBy\" : \"6426dbc6af37655dddb7c315\",\n    \"reasonText\" : \"Test\",\n    \"doc\" : \"6426dbc6af37655dddb7c315\",\n    \"docModel\" : \"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/protected/report",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllReports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/protected/report",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editUserprofile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Klaus Wolfgang Herbert\",\n    \"username\": \"albert\",\n    \"birthday\": \"2009-07-03\",\n    \"email\": \"hannespetri89@gmail.com\",\n    \"city\": \"Leipzig\",\n    \"description\": {\n        \"prefPosition\": \"goofy\",\n        \"favLocations\": \"Ischgl\",\n        \"style\": \"freestyle\",\n        \"equipment\": \"Burton\",\n        \"text\": \"Ich fahre gut\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/protected/userprofile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"userprofile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Gemeiner Kommentar!!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/protected/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editCommentById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Erster Kommentar!! Und noch etwas mehr.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/protected/comments/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"protected",
+								"comments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDJhYmY3YTAzNjliZmIwMWFhMGNkZWIiLCJ1c2VybmFtZSI6Im9sbGlHUCIsImVtYWlsIjoib2xsaWVAdGVzdC5kZSIsImlhdCI6MTY4MDUzMDEyNH0.V3tZ80uRu8rl7llAltPGoSWpLV8tyCTu7xTXq2ghEuA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
